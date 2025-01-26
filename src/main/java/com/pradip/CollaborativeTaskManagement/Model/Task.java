@@ -29,6 +29,12 @@ public class Task {
 
     private LocalDate dueDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_id", nullable = false)
+    private User createdBy;
+
+
+
     //Enum
     public enum TaskStatus {
         TODO,
@@ -68,6 +74,15 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 
     public User getAssignedTo() {
