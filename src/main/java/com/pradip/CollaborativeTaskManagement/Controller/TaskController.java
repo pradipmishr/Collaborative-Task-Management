@@ -3,11 +3,15 @@ package com.pradip.CollaborativeTaskManagement.Controller;
 import com.pradip.CollaborativeTaskManagement.Model.Task;
 import com.pradip.CollaborativeTaskManagement.Service.TaskService;
 import com.pradip.CollaborativeTaskManagement.Service.UserService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -20,9 +24,25 @@ public class TaskController {
     private UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createTask(@RequestBody Task task) {
-        Task savedTask = taskService.saveTask(task);
-        return ResponseEntity.ok(savedTask);
+    public ResponseEntity<Task> saveTask(@RequestBody Map<String, Object> requestBody) {
+        String title = (String) requestBody.get("title");
+        String description = (String) requestBody.get("description");
+        Task.TaskStatus status = Task.TaskStatus.valueOf((String) requestBody.get("status"));
+        Long assignedToId = ((Number) requestBody.get("assignedTo")).longValue();
+        Long projectId = ((Number) requestBody.get("project")).longValue();
+        Long createdById = ((Number) requestBody.get("createdBy")).longValue();
+        String dueDateStr = (String) requestBody.get("dueDate");
+
+        LocalDate dueDate = LocalDate.parse(dueDateStr);
+
+        Task task = new Task();
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setStatus(status);
+        task.setDueDate(dueDate);
+
+        Task createdTask = taskService.saveTask(task, assignedToId, projectId, createdById);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
     @GetMapping("/{id}")
