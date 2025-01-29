@@ -23,20 +23,23 @@ public class TaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Task saveTask(Task task, Long assignedToId, Long projectId, Long createdById) {
-        User assignedTo = userRepository.findById(assignedToId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + assignedToId));
-        User createdBy = userRepository.findById(createdById)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + createdById));
-        Project project = projectRepository.findById(projectId)
-                .orElseThrow(() -> new IllegalArgumentException("Project not found with ID: " + projectId));
-
-        task.setAssignedTo(assignedTo);
-        task.setCreatedBy(createdBy);
-        task.setProject(project);
-
-        return taskRepository.save(task);
-    }
+//    public Task saveTask(Task task, Long assignedToId, Long projectId, Long createdById) {
+//        User assignedTo = userRepository.findById(assignedToId)
+//                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + assignedToId));
+//        User createdBy = userRepository.findById(createdById)
+//                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + createdById));
+//        Project project = projectRepository.findById(projectId)
+//                .orElseThrow(() -> new IllegalArgumentException("Project not found with ID: " + projectId));
+//
+//        task.setAssignedTo(assignedTo);
+//        task.setCreatedBy(createdBy);
+//        task.setProject(project);
+//
+//        return taskRepository.save(task);
+//    }
+public Task saveTask(Task task) {
+    return taskRepository.save(task);  // Saves the task in the database
+}
 
     public List<Task> findByAssignedTo(User user) {
         return taskRepository.findByAssignedTo(user);

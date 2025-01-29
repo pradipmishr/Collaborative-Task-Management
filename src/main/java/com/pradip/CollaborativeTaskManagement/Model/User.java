@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +27,10 @@ public class User {
 
     @OneToMany(mappedBy = "assignedTo")
     private List<Task> tasks;
+
+    public User(Long id) {
+        this.id = id;
+    }
 
     //Enum
     public enum Role {
