@@ -1,6 +1,7 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -26,7 +27,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "id")
-    @JsonBackReference  // This is important to avoid recursion in bidirectional relationships
+    @JsonManagedReference("task-assigned")
     private User assignedTo;  // This will be deserialized as a full User object from the `assignedTo` id
 
 
@@ -42,7 +43,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonManagedReference("task-createdBy")
     private User createdBy;
 
 

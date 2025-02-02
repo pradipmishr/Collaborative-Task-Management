@@ -1,7 +1,9 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -25,8 +27,15 @@ public class User {
     @ManyToMany(mappedBy = "members")
     private List<Project> projects;
 
+
+
     @OneToMany(mappedBy = "assignedTo")
-    private List<Task> tasks;
+    @JsonBackReference("task-assigned")
+    private Set<Task> tasksAssigned;
+
+    @OneToMany(mappedBy = "createdBy")
+    @JsonBackReference("task-createdBy")
+    private Set<Task> tasksCreated;
 
     public User(Long id) {
         this.id = id;
@@ -88,12 +97,12 @@ public class User {
         this.projects = projects;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public Set<Task> getTasksAssigned() {
+        return tasksAssigned;
+    }
+    public void setTasksAssigned(Set<Task> tasksAssigned) {
+        this.tasksAssigned = tasksAssigned;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 }
 
