@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class Task {
 
     @Id
@@ -27,8 +29,14 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "id")
-    @JsonManagedReference("task-assigned")
-    private User assignedTo;  // This will be deserialized as a full User object from the `assignedTo` id
+    @JsonBackReference("task-assigned")
+    private User assignedTo;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", referencedColumnName = "id")
+    @JsonBackReference("task-createdBy")
+    private User createdBy;
+    // This will be deserialized as a full User object from the `assignedTo` id
 
 
     @ManyToOne
@@ -41,10 +49,7 @@ public class Task {
 //    @JoinColumn(name = "created_by_id", nullable = false)
 //    private User createdBy;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by", referencedColumnName = "id")
-    @JsonManagedReference("task-createdBy")
-    private User createdBy;
+
 
 
 
