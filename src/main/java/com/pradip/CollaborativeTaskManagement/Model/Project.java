@@ -28,7 +28,16 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
+    // Constructors
+
+    public Project(Long id) {
+        this.id = id;
+    }
+    public Project() {
+    }
+
     // Getters and setters
+
 
     public Long getId() {
         return id;

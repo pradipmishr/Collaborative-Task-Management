@@ -35,11 +35,9 @@ public class User {
 
 
     @OneToMany(mappedBy = "assignedTo")
-    @JsonManagedReference("task-assigned")
     private Set<Task> tasksAssigned;
 
     @OneToMany(mappedBy = "createdBy")
-    @JsonManagedReference("task-createdBy")
     private Set<Task> tasksCreated;
 
     public User(Long id) {
@@ -52,6 +50,7 @@ public class User {
         MEMBER
     }
 
+    public User() {}
     // Getters and setters
 
     public Long getId() {
