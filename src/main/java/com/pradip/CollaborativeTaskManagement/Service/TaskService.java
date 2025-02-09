@@ -38,8 +38,29 @@ public class TaskService {
 //        return taskRepository.save(task);
 //    }
 public Task saveTask(Task task) {
-    return taskRepository.save(task);  // Saves the task in the database
+    if (task.getCreatedBy() != null && task.getCreatedBy().getId() != null) {
+        User createdBy = userRepository.findById(task.getCreatedBy().getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + task.getCreatedBy().getId()));
+        task.setCreatedBy(createdBy);
+    } else {
+        throw new IllegalArgumentException("CreatedBy user must be provided");
+    }
+
+    if (task.getAssignedTo() != null && task.getAssignedTo().getId() != null) {
+        User assignedTo = userRepository.findById(task.getAssignedTo().getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + task.getAssignedTo().getId()));
+        task.setAssignedTo(assignedTo);
+    }
+
+    if (task.getProject() != null && task.getProject().getId() != null) {
+        Project project = projectRepository.findById(task.getProject().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Project not found with ID: " + task.getProject().getId()));
+        task.setProject(project);
+    }
+
+    return taskRepository.save(task);
 }
+
 
     public List<Task> findByAssignedTo(User user) {
         return taskRepository.findByAssignedTo(user);

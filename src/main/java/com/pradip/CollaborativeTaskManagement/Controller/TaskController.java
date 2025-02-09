@@ -23,27 +23,6 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
-//    @PostMapping("/create")
-//    public ResponseEntity<Task> saveTask(@RequestBody Map<String, Object> requestBody) {
-//        String title = (String) requestBody.get("title");
-//        String description = (String) requestBody.get("description");
-//        Task.TaskStatus status = Task.TaskStatus.valueOf((String) requestBody.get("status"));
-//        Long assignedToId = ((Number) requestBody.get("assignedTo")).longValue();
-//        Long projectId = ((Number) requestBody.get("project")).longValue();
-//        Long createdById = ((Number) requestBody.get("createdBy")).longValue();
-//        String dueDateStr = (String) requestBody.get("dueDate");
-//
-//        LocalDate dueDate = LocalDate.parse(dueDateStr);
-//
-//        Task task = new Task();
-//        task.setTitle(title);
-//        task.setDescription(description);
-//        task.setStatus(status);
-//        task.setDueDate(dueDate);
-//
-//        Task createdTask = taskService.saveTask(task, assignedToId, projectId, createdById);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
-//    }
 @PostMapping("/create")  // Endpoint to create a new task
 public ResponseEntity<Task> createTask(@RequestBody Task task) {
     Task savedTask = taskService.saveTask(task);  // Calls the service to save the task
