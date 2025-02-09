@@ -3,15 +3,12 @@ package com.pradip.CollaborativeTaskManagement.Controller;
 import com.pradip.CollaborativeTaskManagement.Model.Task;
 import com.pradip.CollaborativeTaskManagement.Service.TaskService;
 import com.pradip.CollaborativeTaskManagement.Service.UserService;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api/tasks")
