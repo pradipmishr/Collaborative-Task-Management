@@ -3,6 +3,8 @@ package com.pradip.CollaborativeTaskManagement.Model;
 
 
 import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,6 +24,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
+
 
     private LocalDateTime timestamp;
 
