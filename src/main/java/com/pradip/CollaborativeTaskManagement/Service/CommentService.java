@@ -83,9 +83,9 @@ public class CommentService {
         }
     }
 
-    private void createNotification(User user, String message) {
+    private void createNotification(User receiver, String message) {
         Notification notification = new Notification();
-        notification.setUser(user);
+        notification.setReceiver(receiver);
         notification.setMessage(message);
         notification.setTimestamp(LocalDateTime.now());
         notificationRepository.save(notification);

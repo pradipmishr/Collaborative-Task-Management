@@ -1,9 +1,6 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
-
-
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +23,6 @@ public class Comment {
     private User author;
 
     private LocalDateTime timestamp;
-
     @Column(nullable = false)
     private boolean seen = false;  // New field to track if notification is seen
 

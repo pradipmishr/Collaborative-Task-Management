@@ -1,16 +1,12 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class User {
     @Id
@@ -35,9 +31,11 @@ public class User {
 
 
     @OneToMany(mappedBy = "assignedTo")
+    @JsonManagedReference("task-assigned")
     private Set<Task> tasksAssigned;
 
     @OneToMany(mappedBy = "createdBy")
+    @JsonManagedReference("task-createdBy")
     private Set<Task> tasksCreated;
 
     public User(Long id) {

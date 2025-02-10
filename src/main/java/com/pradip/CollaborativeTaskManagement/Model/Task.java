@@ -1,15 +1,10 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
 public class Task {
 
     @Id
@@ -31,16 +26,20 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "id")
+    @JsonBackReference("task-assigned")
+
     private User assignedTo;
 
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id")
+    @JsonBackReference("task-createdBy")
+
     private User createdBy;
-    // This will be deserialized as a full User object from the `assignedTo` id
 
 
     @ManyToOne
     @JoinColumn(name = "project_id")
+    @JsonBackReference("task-project")
     private Project project;
 
     private LocalDate dueDate;

@@ -21,10 +21,10 @@ public class NotificationController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<Notification>> getNotifications(@PathVariable Long userId) {
-        User user = userRepository.findById(userId)
+        User receiver = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        List<Notification> notifications = notificationRepository.findByUserAndSeenFalse(user);
+        List<Notification> notifications = notificationRepository.findByReceiver(receiver);
         return ResponseEntity.ok(notifications);
     }
 

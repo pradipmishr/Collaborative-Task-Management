@@ -12,7 +12,7 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // The user who will receive the notification
+    private User receiver;  // The user who will receive the notification
 
     @Column(nullable = false)
     private String message;  // Notification message
@@ -25,8 +25,8 @@ public class Notification {
         this.timestamp = LocalDateTime.now();
     }
 
-    public Notification(User user, String message) {
-        this.user = user;
+    public Notification(User receiver, String message) {
+        this.receiver = receiver;
         this.message = message;
         this.timestamp = LocalDateTime.now();
     }
@@ -41,12 +41,12 @@ public class Notification {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
     public String getMessage() {
