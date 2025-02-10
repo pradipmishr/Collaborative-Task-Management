@@ -25,9 +25,15 @@ public class Comment {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
-
     private LocalDateTime timestamp;
 
+    @Column(nullable = false)
+    private boolean seen = false;  // New field to track if notification is seen
+
+    // Constructors
+    public Comment() {
+        this.timestamp=LocalDateTime.now(); // Set the timestamp to the current time
+    }
     // Getters and setters
 
 
@@ -69,6 +75,14 @@ public class Comment {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 }
 

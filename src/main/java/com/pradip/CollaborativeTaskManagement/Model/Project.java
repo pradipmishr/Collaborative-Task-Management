@@ -1,10 +1,6 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
-
-
 import jakarta.persistence.*;
-
-
 import java.util.List;
 
 @Entity
