@@ -1,5 +1,6 @@
 package com.pradip.CollaborativeTaskManagement.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,8 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"password", "projects", "tasksAssigned", "tasksCreated"}) // Ignore unnecessary fields
+
     private User receiver;  // The user who will receive the notification
 
     @Column(nullable = false)
