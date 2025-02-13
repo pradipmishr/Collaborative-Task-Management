@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<h2>WebSocket Notification Test</h2>
+<p><strong>Notifications:</strong></p>
+<ul id="notifications"></ul>
+
+<script>
+        // Create a WebSocket connection
+        let socket = new SockJS("http://localhost:8080/ws");
+        let stompClient = Stomp.over(socket);
+
+        // Connect to WebSocket and subscribe to the notifications topic
+        stompClient.connect({}, function (frame) {
+            console.log("Connected: " + frame);
+
+            // Subscribe to /topic/notifications
+            stompClient.subscribe("/topic/notifications", function (message) {
+                let notification = message.body; // Get the notification message
+                let list = document.getElementById("notifications");
+                let li = document.createElement("li");
+                li.textContent = notification;  // Display notification in list
+                list.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
