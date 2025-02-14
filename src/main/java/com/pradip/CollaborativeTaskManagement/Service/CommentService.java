@@ -43,7 +43,7 @@ public class CommentService {
         // Send WebSocket message to all subscribers of /topic/notifications
         messagingTemplate.convertAndSend("/topic/notifications", message);
 
-        // Optionally, create a notification for individual users (as per your current logic)
+        // Optionally, create a notification for individual users
         if (task.getCreatedBy() != null && !task.getCreatedBy().equals(author)) {
             createNotification(task.getCreatedBy(), message);
         }
