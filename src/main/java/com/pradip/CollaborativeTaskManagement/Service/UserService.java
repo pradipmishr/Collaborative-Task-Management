@@ -4,6 +4,8 @@ import com.pradip.CollaborativeTaskManagement.Model.User;
 import com.pradip.CollaborativeTaskManagement.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +32,10 @@ public class UserService {
 
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
 

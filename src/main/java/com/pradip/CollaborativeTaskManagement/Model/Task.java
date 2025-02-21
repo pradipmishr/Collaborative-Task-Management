@@ -20,9 +20,6 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status; // e.g., TODO, IN_PROGRESS, COMPLETED
 
-//    @ManyToOne
-//    @JoinColumn(name = "assigned_to_id")
-//    private User assignedTo;
 
     @ManyToOne
     @JoinColumn(name = "assigned_to", referencedColumnName = "id")
