@@ -35,9 +35,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll() // Allow public access to login
                         .requestMatchers("/ws/**").permitAll()  // WebSocket should be accessible
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Only ADMIN can access admin endpoints
+                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access user endpoints
+                        .anyRequest().authenticated() // All other requests require authentication
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
