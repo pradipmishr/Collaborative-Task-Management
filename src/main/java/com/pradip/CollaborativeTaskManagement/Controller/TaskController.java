@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
-@PostMapping("/create")  // Endpoint to create a new task
+@PostMapping("/admin/create")  // Endpoint to create a new task
 public ResponseEntity<Task> createTask(@RequestBody Task task) {
     Task savedTask = taskService.saveTask(task);  // Calls the service to save the task
     return new ResponseEntity<>(savedTask, HttpStatus.CREATED);  // Returns the saved task with HTTP 201 status
