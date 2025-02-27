@@ -39,6 +39,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/register").permitAll() // Allow public access to login
                         .requestMatchers("/ws/**").permitAll()  // WebSocket should be accessible
                         .requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access user endpoints
+                        .requestMatchers("/tasks/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access task endpoints
+                        .requestMatchers("/tasks/admin/**").hasRole("ADMIN") // Only ADMIN can access admin endpoints
+                        .requestMatchers("/projects/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access project endpoints
+                        .requestMatchers("/projects/admin/**").hasRole("ADMIN") // Only ADMIN can access admin endpoints
+                        .requestMatchers("/api/notifications/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access notification endpoints
+                        .requestMatchers("/api/comments/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access comment endpoints
+
                         .anyRequest().authenticated() // All other requests require authentication
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
