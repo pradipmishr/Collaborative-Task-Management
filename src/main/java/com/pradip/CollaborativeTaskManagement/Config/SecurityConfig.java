@@ -45,7 +45,6 @@ public class SecurityConfig {
                         .requestMatchers("/projects/admin/**").hasRole("ADMIN") // Only ADMIN can access admin endpoints
                         .requestMatchers("/api/notifications/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access notification endpoints
                         .requestMatchers("/api/comments/**").hasAnyRole("USER", "ADMIN") // USER and ADMIN can access comment endpoints
-
                         .anyRequest().authenticated() // All other requests require authentication
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
